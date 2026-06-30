@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | NexusLearn</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Charcoal & Emerald Theme */
+            --sidebar-bg: #0f172a;
+            --sidebar-hover: #1e293b;
+            --theme-primary: #0f766e;
+            --theme-primary-hover: #115e59;
+            --theme-accent: #14b8a6;
+            --bg-light: #f8fafc;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Fixed Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--sidebar-bg);
+            box-shadow: 4px 0 10px rgba(0,0,0,0.05);
+            z-index: 1050;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-brand {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .user-profile-panel {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .avatar-circle {
+            width: 48px;
+            height: 48px;
+            background-color: var(--theme-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .nav-link-custom {
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
+            margin: 0.2rem 1rem;
+            transition: all 0.2s;
+        }
+        
+        .nav-link-custom:hover, .nav-link-custom.active {
+            color: white;
+            background-color: var(--sidebar-hover);
+            transform: translateX(3px);
+        }
+        
+        .nav-link-custom i {
+            margin-right: 12px;
+            font-size: 1.15rem;
+            color: var(--theme-accent);
+        }
+
+        /* Main Content Wrapper */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+            padding: 0.75rem 1.5rem;
+            z-index: 1020;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Dashboard Cards */
+        .dash-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .dash-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            border-color: rgba(15, 118, 110, 0.2);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-icon.primary { background: rgba(15, 118, 110, 0.1); color: var(--theme-primary); }
+        .stat-icon.warning { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .stat-icon.success { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+
+        /* Progress Bars */
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #f1f5f9;
+        }
+        .progress-bar.theme { background-color: var(--theme-primary); }
+
+        /* Utilities */
+        .text-theme { color: var(--theme-primary) !important; }
+        .bg-theme { background-color: var(--theme-primary) !important; color: white; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            /* Overlay for mobile sidebar */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 1040;
+            }
+            .sidebar-overlay.show {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Fixed Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <!-- Brand -->
+        <div class="sidebar-brand">
+            <a class="text-white text-decoration-none fs-5 fw-bold d-flex align-items-center" href="index.html">
+                <i class="bi bi-mortarboard-fill me-2 text-theme"></i>NexusLearn
+            </a>
+        </div>
+
+        <!-- User Profile Panel -->
+        <div class="user-profile-panel d-flex align-items-center gap-3">
+            <div class="avatar-circle shadow-sm">RA</div>
+            <div class="overflow-hidden">
+                <h6 class="text-white mb-0 text-truncate">Rickshitha Anandakumar</h6>
+                <small class="text-white-50 text-truncate d-block" style="font-size: 0.75rem;">B.Sc. Computer Science (AI)</small>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="py-3 flex-grow-1 overflow-y-auto">
+            <p class="text-white-50 small fw-semibold px-4 mb-2 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Menu</p>
+            <a href="dashboard.html" class="nav-link-custom active"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <a href="#" class="nav-link-custom"><i class="bi bi-journal-bookmark"></i> My Courses</a>
+            <a href="#" class="nav-link-custom"><i class="bi bi-search"></i> Browse Catalog</a>
+            <a href="#" class="nav-link-custom"><i class="bi bi-bar-chart-steps"></i> Progress Reports</a>
+            
+            <p class="text-white-50 small fw-semibold px-4 mb-2 mt-4 text-uppercase" style="font-size: 0.7rem; letter-spacing: 1px;">Account</p>
+            <a href="#" class="nav-link-custom"><i class="bi bi-person"></i> Profile Settings</a>
+            <a href="#" class="nav-link-custom"><i class="bi bi-bell"></i> Notifications <span class="badge bg-danger ms-auto rounded-pill">3</span></a>
+        </div>
+
+        <!-- Logout Action -->
+        <div class="p-3 border-top" style="border-color: rgba(255,255,255,0.05) !important;">
+            <a href="login.html" class="btn btn-outline-light btn-sm w-100 text-start border-0 text-white-50 hover-text-white">
+                <i class="bi bi-box-arrow-left me-2"></i> Secure Logout
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- Top Navbar -->
+        <nav class="top-navbar">
+            <div class="d-flex align-items-center">
+                <button class="btn btn-link text-dark p-0 me-3 d-lg-none" id="sidebarToggle">
+                    <i class="bi bi-list fs-2"></i>
+                </button>
+                <h5 class="mb-0 fw-bold d-none d-sm-block">Student Dashboard</h5>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3">
+                <!-- Search -->
+                <div class="input-group input-group-sm d-none d-md-flex" style="width: 250px;">
+                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0 bg-light" placeholder="Search courses...">
+                </div>
+                <!-- Notification Bell -->
+                <button class="btn btn-link text-dark p-0 position-relative">
+                    <i class="bi bi-bell fs-5"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid p-4">
+            
+            <!-- Welcome Banner -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="dash-card bg-theme p-4 position-relative overflow-hidden">
+                        <!-- Decorative SVG Background -->
+                        <svg class="position-absolute top-0 end-0 opacity-25 h-100" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <polygon fill="white" points="50,0 100,0 100,100 80,100"/>
+                        </svg>
+                        <div class="position-relative z-1">
+                            <h3 class="fw-bold mb-1">Welcome back, Rickshitha! 👋</h3>
+                            <p class="mb-0 text-white-50">You have 2 upcoming assignments this week. Keep up the great work.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Statistics Row -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <div class="dash-card p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon primary"><i class="bi bi-journal-code"></i></div>
+                            <div>
+                                <h3 class="fw-bold mb-0 text-dark">4</h3>
+                                <small class="text-muted fw-medium">Total Courses Enrolled</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dash-card p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon warning"><i class="bi bi-hourglass-split"></i></div>
+                            <div>
+                                <h3 class="fw-bold mb-0 text-dark">3</h3>
+                                <small class="text-muted fw-medium">Ongoing Courses</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dash-card p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="stat-icon success"><i class="bi bi-award"></i></div>
+                            <div>
+                                <h3 class="fw-bold mb-0 text-dark">1</h3>
+                                <small class="text-muted fw-medium">Courses Completed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Learning Progress Tracking (Module 5) -->
+                <div class="col-xl-8">
+                    <div class="dash-card">
+                        <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
+                            <h6 class="fw-bold mb-0">Current Learning Progress</h6>
+                            <a href="#" class="small text-theme text-decoration-none fw-medium">View All</a>
+                        </div>
+                        <div class="p-4">
+                            <!-- Course 1 -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Introduction to Machine Learning</h6>
+                                        <small class="text-muted">6 of 8 modules completed</small>
+                                    </div>
+                                    <span class="badge bg-light text-dark border">75%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar theme" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Course 2 -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Python for Data Analytics</h6>
+                                        <small class="text-muted">4 of 10 modules completed</small>
+                                    </div>
+                                    <span class="badge bg-light text-dark border">40%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar theme" style="width: 40%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Course 3 -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">Frontend Web Development</h6>
+                                        <small class="text-muted">8 of 10 modules completed</small>
+                                    </div>
+                                    <span class="badge bg-light text-dark border">80%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar theme" style="width: 80%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Completed Course -->
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <h6 class="mb-0 fw-bold text-success"><i class="bi bi-check-circle-fill me-1"></i> Database Management Systems</h6>
+                                        <small class="text-muted">12 of 12 modules completed</small>
+                                    </div>
+                                    <span class="badge bg-success">100%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications / Recent Activity -->
+                <div class="col-xl-4">
+                    <div class="dash-card">
+                        <div class="p-4 border-bottom">
+                            <h6 class="fw-bold mb-0">Recent Notifications</h6>
+                        </div>
+                        <div class="p-0">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item p-4 border-bottom-0 border-light">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="text-theme mt-1"><i class="bi bi-file-earmark-text fs-5"></i></div>
+                                        <div>
+                                            <h6 class="mb-1 small fw-bold">New Assignment Posted</h6>
+                                            <p class="mb-1 small text-muted">Module 7 quiz for Machine Learning is now available.</p>
+                                            <small class="text-muted" style="font-size: 0.7rem;">2 hours ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-4 border-bottom-0 border-light bg-light">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="text-success mt-1"><i class="bi bi-check2-circle fs-5"></i></div>
+                                        <div>
+                                            <h6 class="mb-1 small fw-bold">Enrollment Confirmed</h6>
+                                            <p class="mb-1 small text-muted">You have successfully enrolled in Python for Data Analytics.</p>
+                                            <small class="text-muted" style="font-size: 0.7rem;">Yesterday</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-4 border-bottom-0 border-light">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="text-warning mt-1"><i class="bi bi-calendar-event fs-5"></i></div>
+                                        <div>
+                                            <h6 class="mb-1 small fw-bold">System Maintenance</h6>
+                                            <p class="mb-1 small text-muted">Platform will be offline for updates on Sunday at 2 AM.</p>
+                                            <small class="text-muted" style="font-size: 0.7rem;">2 days ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-3 border-top text-center bg-light rounded-bottom">
+                            <a href="#" class="small text-muted text-decoration-none fw-medium hover-text-theme">View Notification History</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Bootstrap JS & Custom Script for Mobile Sidebar -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple script to handle sidebar toggling on mobile screens
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            }
+
+            toggleBtn.addEventListener('click', toggleSidebar);
+            overlay.addEventListener('click', toggleSidebar);
+        });
+    </script>
+</body>
+</html>

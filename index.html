@@ -115,7 +115,7 @@
 
         /* Hero Section */
         .hero-section {
-            padding: 120px 0 80px;
+            padding: 60px 0 80px;
             background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
             position: relative;
             overflow: hidden;
@@ -139,15 +139,31 @@
             z-index: 1;
         }
         
-        .hero-img {
+        /* Carousel Custom Styling */
+        .hero-carousel {
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             border: 1px solid rgba(255,255,255,0.5);
             transition: transform 0.5s ease;
+            overflow: hidden;
         }
         
-        .hero-img:hover {
+        .hero-carousel:hover {
             transform: scale(1.02);
+        }
+
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 5px;
+            background-color: #fff;
+            opacity: 0.6;
+        }
+
+        .carousel-indicators .active {
+            opacity: 1;
+            background-color: var(--theme-accent);
         }
 
         .floating-card {
@@ -164,6 +180,7 @@
             align-items: center;
             gap: 15px;
             animation: float 3s ease-in-out infinite;
+            z-index: 10;
         }
 
         @keyframes float {
@@ -338,9 +355,31 @@
                         </div>
                     </div>
 
-                    <!-- Right Image Area -->
+                    <!-- Right Image Area with Carousel -->
                     <div class="col-lg-5 d-none d-lg-block hero-image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Students learning" class="img-fluid hero-img object-fit-cover" style="height: 500px; width: 100%;">
+                        
+                        <!-- Bootstrap Carousel -->
+                        <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-pause="hover">
+                            <!-- Indicators -->
+                            <div class="carousel-indicators mb-3">
+                                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            
+                            <!-- Slides -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" data-bs-interval="4000">
+                                    <img src="https://img.magnific.com/free-vector/online-tutoring-app-software-abstract-concept-illustration-online-tutoring-session-video-chat-e-learning-scheduling-software-personal-learning-plan_335657-3485.jpg?semt=ais_hybrid&w=740&q=80" alt="Students studying together" class="d-block w-100 object-fit-cover" style="height: 500px;">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="4000">
+                                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Student working on laptop" class="d-block w-100 object-fit-cover" style="height: 500px;">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="4000">
+                                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lecture hall" class="d-block w-100 object-fit-cover" style="height: 500px;">
+                                </div>
+                            </div>
+                        </div>
                         
                         <!-- Floating Highlight Card -->
                         <div class="floating-card d-none d-xl-flex">
@@ -360,8 +399,8 @@
         <!-- Features Section -->
         <section id="features" class="py-5 my-5">
             <div class="container px-4 px-lg-5">
-                <div class="text-center mb-5 max-w-700 mx-auto">
-                    <h6 class="text-theme fw-bold text-uppercase tracking-wider mb-2">Core Modules</h6>
+                <div class="text-center mb-5 mx-auto" style="max-width: 700px;">
+                    <h6 class="text-theme fw-bold text-uppercase mb-2" style="letter-spacing: 1px;">Core Modules</h6>
                     <h2 class="display-6 fw-bold mb-3">System Capabilities</h2>
                     <p class="text-secondary lead">Everything students and administrators need to streamline the education workflow in one seamless environment.</p>
                 </div>
@@ -400,6 +439,85 @@
                 </div>
             </div>
         </section>
+
+        <!-- Statistics Section -->
+        <section class="py-5 bg-white border-top border-bottom">
+            <div class="container px-4 px-lg-5">
+                <div class="row g-4 text-center justify-content-center">
+                    <div class="col-6 col-md-3">
+                        <h2 class="display-5 fw-bold text-theme mb-1">10K+</h2>
+                        <p class="text-secondary mb-0 fw-medium">Active Students</p>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h2 class="display-5 fw-bold text-theme mb-1">500+</h2>
+                        <p class="text-secondary mb-0 fw-medium">Courses Available</p>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h2 class="display-5 fw-bold text-theme mb-1">98%</h2>
+                        <p class="text-secondary mb-0 fw-medium">Completion Rate</p>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h2 class="display-5 fw-bold text-theme mb-1">50+</h2>
+                        <p class="text-secondary mb-0 fw-medium">Partner Institutions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-5 my-5">
+            <div class="container px-4 px-lg-5">
+                <div class="text-center mb-5 mx-auto" style="max-width: 700px;">
+                    <h6 class="text-theme fw-bold text-uppercase mb-2" style="letter-spacing: 1px;">Success Stories</h6>
+                    <h2 class="display-6 fw-bold mb-3">Trusted by Students Worldwide</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <div class="d-flex text-warning mb-3">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="fst-italic text-secondary mb-4 fs-5">"NexusLearn completely transformed how I manage my coursework. The progress tracking feature keeps me motivated and strictly on top of my deadlines."</p>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-3" style="width: 50px; height: 50px; background-color: var(--sidebar-bg) !important;">SJ</div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">Sarah Jenkins</h6>
+                                    <small class="text-secondary">Computer Science Major</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <div class="d-flex text-warning mb-3">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="fst-italic text-secondary mb-4 fs-5">"The user interface is incredibly intuitive. Enrolling in courses and connecting with my professors has never been this seamless."</p>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-3" style="width: 50px; height: 50px; background-color: var(--theme-primary) !important;">MR</div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">Michael Rodriguez</h6>
+                                    <small class="text-secondary">Business Administration</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call To Action Section -->
+        <section class="py-5" style="background-color: var(--sidebar-bg);">
+            <div class="container px-4 px-lg-5 py-lg-5 text-center">
+                <h2 class="display-6 fw-bold text-white mb-3">Ready to transform your learning experience?</h2>
+                <p class="text-white-50 lead mb-5 mx-auto" style="max-width: 600px;">Join thousands of students who are already using NexusLearn to achieve their academic goals efficiently and securely.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    <a href="register.html" class="btn btn-theme btn-lg px-5 py-3 rounded-pill">Create Free Account</a>
+                    <a href="login.html" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill">Log in to Dashboard</a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Professional Footer -->
@@ -426,7 +544,7 @@
                     <h5 class="footer-heading">Platform</h5>
                     <ul class="list-unstyled">
                         <li><a href="#" class="footer-link">Browse Courses</a></li>
-                        <li><a href="#" class="footer-link">Student Dashboard</a></li>
+                        <li><a href="dashboard.html" class="footer-link">Student Dashboard</a></li>
                         <li><a href="#" class="footer-link">Admin Portal</a></li>
                         <li><a href="#" class="footer-link">Analytics</a></li>
                     </ul>

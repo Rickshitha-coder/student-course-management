@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | NexusLearn</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Charcoal & Emerald Theme (Matching index.html) */
+            --sidebar-bg: #0f172a;
+            --theme-primary: #0f766e;
+            --theme-primary-hover: #115e59;
+            --theme-accent: #14b8a6;
+            --bg-light: #f8fafc;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Simplified Top Navbar for Auth Pages */
+        .top-navbar {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+            padding: 0.6rem 1.5rem;
+            z-index: 1020;
+        }
+
+        .text-theme { color: var(--theme-primary) !important; }
+
+        /* Buttons & Inputs */
+        .btn-theme {
+            background-color: var(--theme-primary);
+            color: white;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-theme:hover {
+            background-color: var(--theme-primary-hover);
+            color: white;
+            box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
+        }
+        
+        .form-control:focus {
+            border-color: var(--theme-primary);
+            box-shadow: 0 0 0 0.25rem rgba(15, 118, 110, 0.25);
+        }
+        .form-check-input:checked {
+            background-color: var(--theme-primary);
+            border-color: var(--theme-primary);
+        }
+
+        /* Login Card Layout */
+        .login-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.04);
+            overflow: hidden;
+            background: #ffffff;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .login-left-pane {
+            background: linear-gradient(135deg, var(--sidebar-bg) 0%, #1e293b 100%);
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .login-right-pane {
+            padding: 3.5rem 3rem;
+        }
+
+        .auth-link {
+            color: var(--theme-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .auth-link:hover {
+            color: var(--theme-primary-hover);
+            text-decoration: underline;
+        }
+
+        /* Simple Footer */
+        .auth-footer {
+            background-color: #0b1120;
+            color: #94a3b8;
+            padding: 1.5rem 0;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+          /* Professional Footer */
+        .footer-modern {
+            background-color: var(--sidebar-bg);
+            color: #94a3b8;
+            padding: 80px 0 30px;
+            margin-top: auto;
+        }
+        .footer-heading {
+            color: #f8fafc;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        .footer-link {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+        .footer-link:hover {
+            color: var(--theme-accent);
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: var(--theme-primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 50px;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Simplified Navbar -->
+    <nav class="navbar top-navbar d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold fs-5 m-0 d-flex align-items-center text-dark" href="index.html">
+            <i class="bi bi-mortarboard-fill me-2 text-theme"></i>Nexus<span class="text-secondary fw-light">Learn</span>
+        </a>
+        <a href="index.html" class="text-muted text-decoration-none small"><i class="bi bi-arrow-left me-1"></i> Back to Home</a>
+    </nav>
+
+    <!-- Main Login Area -->
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="container px-4">
+            <div class="login-card">
+                <div class="row g-0">
+                    
+                    <!-- Left Branding Pane (Hidden on mobile) -->
+                    <div class="col-lg-5 d-none d-lg-flex login-left-pane">
+                        <div>
+                            <span class="badge bg-white text-dark mb-3 px-2 py-1 rounded-1 fw-medium" style="font-size: 0.75rem;">System Access</span>
+                            <h2 class="fw-bold mb-3">Welcome Back.</h2>
+                            <p class="text-white-50 small pe-3" style="line-height: 1.6;">
+                                Log in to access your secure student dashboard, track your module progress, and manage your course enrollments seamlessly.
+                            </p>
+                        </div>
+                        <div class="mt-5 pt-5">
+                            <div class="d-flex align-items-center bg-white bg-opacity-10 p-3 rounded-2 border border-light border-opacity-10">
+                                <i class="bi bi-shield-check fs-3 me-3 text-theme"></i>
+                                <div>
+                                    <h6 class="mb-0 fw-bold fs-6">Secure Portal</h6>
+                                    <small class="text-white-50" style="font-size: 0.75rem;">Encrypted JWT Authentication</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Form Pane -->
+                    <div class="col-lg-7 login-right-pane">
+                        <div class="mb-4 text-center text-lg-start">
+                            <h3 class="fw-bold text-dark mb-1">Account Login</h3>
+                            <p class="text-muted small">Enter your academic credentials to continue.</p>
+                        </div>
+
+                        <form action="dashboard.html">
+                            <!-- Email Field -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label small fw-semibold text-dark">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                                    <input type="email" class="form-control border-start-0 ps-0 bg-light" id="email" placeholder="student@institution.edu" required>
+                                </div>
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label for="password" class="form-label small fw-semibold text-dark m-0">Password</label>
+                                    <a href="#" class="small auth-link" style="font-size: 0.8rem;">Forgot password?</a>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                                    <input type="password" class="form-control border-start-0 ps-0 bg-light" id="password" placeholder="••••••••" required>
+                                </div>
+                            </div>
+
+                            <!-- Options Row -->
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input shadow-none" type="checkbox" value="" id="rememberMe">
+                                    <label class="form-check-label small text-muted" for="rememberMe">
+                                        Remember me for 30 days
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-theme w-100 py-2 rounded-2 mb-3">Sign In to Dashboard</button>
+                            
+                            <!-- Register Link -->
+                            <div class="text-center mt-3">
+                                <p class="small text-muted mb-0">Don't have a student account? <a href="register.html" class="auth-link">Register here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Professional Footer -->
+    <footer class="footer-modern">
+        <div class="container px-4 px-lg-5">
+            <div class="row g-5">
+                <!-- Brand Column -->
+                <div class="col-lg-4 col-md-6">
+                    <a class="text-white text-decoration-none d-flex align-items-center fs-4 fw-bold mb-4" href="index.html">
+                        <i class="bi bi-mortarboard-fill me-2 text-theme"></i>NexusLearn
+                    </a>
+                    <p class="mb-4 pe-lg-4 lh-lg small">
+                        Empowering institutions with a next-generation Learning Management System. Streamline enrollments, track module progress, and achieve academic excellence.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Platform</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Browse Courses</a></li>
+                        <li><a href="#" class="footer-link">Student Dashboard</a></li>
+                        <li><a href="#" class="footer-link">Admin Portal</a></li>
+                        <li><a href="#" class="footer-link">Analytics</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="footer-heading">Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Documentation</a></li>
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">API Reference</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact / Newsletter -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-heading">Stay Updated</h5>
+                    <p class="small mb-3">Subscribe to our newsletter for the latest platform updates and feature releases.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="Email address" aria-label="Email address">
+                        <button class="btn btn-theme px-4" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="small mb-2 mb-md-0">&copy; 2026 NexusLearn Systems. All rights reserved.</p>
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-decoration-none text-secondary small hover-text-white">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-secondary small hover-text-white">Terms of Service</a>
+                    <a href="#" class="text-decoration-none text-secondary small hover-text-white">Security</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

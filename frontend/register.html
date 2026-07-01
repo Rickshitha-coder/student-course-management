@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | NexusLearn</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
@@ -60,6 +58,23 @@
         .form-check-input:checked {
             background-color: var(--theme-primary);
             border-color: var(--theme-primary);
+        }
+
+        /* Custom Nav Pills for Role Selection */
+        .nav-pills .nav-link {
+            color: var(--text-muted);
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s ease;
+        }
+        .nav-pills .nav-link.active {
+            background-color: var(--theme-primary);
+            color: white;
+        }
+        .nav-pills .nav-link:not(.active):hover {
+            background-color: #e2e8f0;
+            color: var(--text-main);
         }
 
         /* Register Card Layout */
@@ -147,7 +162,6 @@
 </head>
 <body>
 
-    <!-- Simplified Navbar -->
     <nav class="navbar top-navbar d-flex justify-content-between align-items-center">
         <a class="navbar-brand fw-bold fs-5 m-0 d-flex align-items-center text-dark" href="index.html">
             <i class="bi bi-mortarboard-fill me-2 text-theme"></i>Nexus<span class="text-secondary fw-light">Learn</span>
@@ -155,19 +169,17 @@
         <a href="index.html" class="text-muted text-decoration-none small"><i class="bi bi-arrow-left me-1"></i> Back to Home</a>
     </nav>
 
-    <!-- Main Register Area -->
     <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
         <div class="container px-4">
             <div class="auth-card">
                 <div class="row g-0">
                     
-                    <!-- Left Branding Pane (Hidden on mobile) -->
                     <div class="col-lg-5 d-none d-lg-flex auth-left-pane">
                         <div>
-                            <span class="badge bg-white text-dark mb-3 px-2 py-1 rounded-1 fw-medium" style="font-size: 0.75rem;">New Student Enrollment</span>
+                            <span class="badge bg-white text-dark mb-3 px-2 py-1 rounded-1 fw-medium" style="font-size: 0.75rem;">NexusLearn Network</span>
                             <h2 class="fw-bold mb-3">Start Your Journey.</h2>
                             <p class="text-white-50 small pe-3" style="line-height: 1.6;">
-                                Create your account to access our comprehensive course catalog, track your learning modules, and connect with your academic department.
+                                Join our platform to access our comprehensive course catalog, manage academic departments, and track educational progress.
                             </p>
                         </div>
                         
@@ -179,95 +191,162 @@
                                 </li>
                                 <li class="mb-3 d-flex align-items-start">
                                     <i class="bi bi-check-circle-fill text-theme me-2 mt-1"></i>
-                                    <span>Track your progress with real-time visual dashboards.</span>
+                                    <span>Track progress with real-time visual dashboards.</span>
                                 </li>
                                 <li class="d-flex align-items-start">
                                     <i class="bi bi-check-circle-fill text-theme me-2 mt-1"></i>
-                                    <span>Receive automated alerts for assignments and module completion.</span>
+                                    <span>Powerful administrative tools for faculty and staff.</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Right Form Pane -->
                     <div class="col-lg-7 auth-right-pane">
                         <div class="mb-4 text-center text-lg-start">
                             <h3 class="fw-bold text-dark mb-1">Create Account</h3>
-                            <p class="text-muted small">Fill in your details below to register.</p>
+                            <p class="text-muted small">Select your role and fill in your details below.</p>
                         </div>
 
-                        <form action="login.html">
-                            <!-- Full Name Field -->
-                            <div class="mb-3">
-                                <label for="fullName" class="form-label small fw-semibold text-dark">Full Name</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
-                                    <input type="text" class="form-control border-start-0 ps-0 bg-light" id="fullName" placeholder="John Doe" required>
-                                </div>
+                        <ul class="nav nav-pills mb-4 nav-justified bg-light p-1 rounded-3" id="roleTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="student-tab" data-bs-toggle="pill" data-bs-target="#student-form" type="button" role="tab" aria-controls="student-form" aria-selected="true">
+                                    <i class="bi bi-person-badge me-2"></i>Student
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="admin-tab" data-bs-toggle="pill" data-bs-target="#admin-form" type="button" role="tab" aria-controls="admin-form" aria-selected="false">
+                                    <i class="bi bi-shield-lock me-2"></i>Administrator
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="roleTabContent">
+                            <div class="tab-pane fade show active" id="student-form" role="tabpanel" aria-labelledby="student-tab">
+                                <form action="login.html">
+                                    <div class="mb-3">
+                                        <label for="studentFullName" class="form-label small fw-semibold text-dark">Full Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
+                                            <input type="text" class="form-control border-start-0 ps-0 bg-light" id="studentFullName" placeholder="John Doe" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="studentEmail" class="form-label small fw-semibold text-dark">Email Address</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                                            <input type="email" class="form-control border-start-0 ps-0 bg-light" id="studentEmail" placeholder="student@institution.edu" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="studentDepartment" class="form-label small fw-semibold text-dark">Academic Department</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-building text-muted"></i></span>
+                                            <select class="form-select border-start-0 ps-0 bg-light text-muted" id="studentDepartment" required>
+                                                <option value="" selected disabled>Select your department...</option>
+                                                <option value="Computer Science">Computer Science</option>
+                                                <option value="Information Technology">Information Technology</option>
+                                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                                <option value="Data Science">Data Science</option>
+                                                <option value="Business Administration">Business Administration</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="studentPassword" class="form-label small fw-semibold text-dark">Create Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                                            <input type="password" class="form-control border-start-0 ps-0 bg-light" id="studentPassword" placeholder="••••••••" required>
+                                        </div>
+                                        <div class="form-text small" style="font-size: 0.75rem;">Must be at least 8 characters long.</div>
+                                    </div>
+
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input shadow-none" type="checkbox" id="studentTermsCheck" required>
+                                        <label class="form-check-label small text-muted" for="studentTermsCheck">
+                                            I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a>.
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-theme w-100 py-2 rounded-2 mb-3">Register Student Account</button>
+                                </form>
                             </div>
 
-                            <!-- Email Field -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label small fw-semibold text-dark">Email Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
-                                    <input type="email" class="form-control border-start-0 ps-0 bg-light" id="email" placeholder="student@institution.edu" required>
-                                </div>
-                            </div>
+                            <div class="tab-pane fade" id="admin-form" role="tabpanel" aria-labelledby="admin-tab">
+                                <form action="admin-dashboard.html">
+                                    <div class="mb-3">
+                                        <label for="adminFullName" class="form-label small fw-semibold text-dark">Staff Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-muted"></i></span>
+                                            <input type="text" class="form-control border-start-0 ps-0 bg-light" id="adminFullName" placeholder="Jane Smith" required>
+                                        </div>
+                                    </div>
 
-                            <!-- Department Dropdown -->
-                            <div class="mb-3">
-                                <label for="department" class="form-label small fw-semibold text-dark">Academic Department</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-building text-muted"></i></span>
-                                    <select class="form-select border-start-0 ps-0 bg-light text-muted" id="department" required>
-                                        <option value="" selected disabled>Select your department...</option>
-                                        <option value="Computer Science">Computer Science</option>
-                                        <option value="Information Technology">Information Technology</option>
-                                        <option value="Artificial Intelligence">Artificial Intelligence</option>
-                                        <option value="Data Science">Data Science</option>
-                                        <option value="Business Administration">Business Administration</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="mb-3">
+                                        <label for="adminEmail" class="form-label small fw-semibold text-dark">Staff Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                                            <input type="email" class="form-control border-start-0 ps-0 bg-light" id="adminEmail" placeholder="admin@institution.edu" required>
+                                        </div>
+                                    </div>
 
-                            <!-- Password Field -->
-                            <div class="mb-4">
-                                <label for="password" class="form-label small fw-semibold text-dark">Create Password</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
-                                    <input type="password" class="form-control border-start-0 ps-0 bg-light" id="password" placeholder="••••••••" required>
-                                </div>
-                                <div class="form-text small" style="font-size: 0.75rem;">Must be at least 8 characters long.</div>
-                            </div>
+                                    <div class="mb-3">
+                                        <label for="adminRole" class="form-label small fw-semibold text-dark">Administrative Role</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-briefcase text-muted"></i></span>
+                                            <select class="form-select border-start-0 ps-0 bg-light text-muted" id="adminRole" required>
+                                                <option value="" selected disabled>Select your role...</option>
+                                                <option value="System Administrator">System Administrator</option>
+                                                <option value="Department Head">Department Head</option>
+                                                <option value="Course Instructor">Course Instructor</option>
+                                                <option value="Registrar">Registrar</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-                            <!-- Terms & Conditions Checkbox -->
-                            <div class="form-check mb-4">
-                                <input class="form-check-input shadow-none" type="checkbox" value="" id="termsCheck" required>
-                                <label class="form-check-label small text-muted" for="termsCheck">
-                                    I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a>.
-                                </label>
-                            </div>
+                                    <div class="mb-3">
+                                        <label for="adminKey" class="form-label small fw-semibold text-dark">Admin Access Key</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-key text-muted"></i></span>
+                                            <input type="password" class="form-control border-start-0 ps-0 bg-light" id="adminKey" placeholder="Enter institution key" required>
+                                        </div>
+                                    </div>
 
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-theme w-100 py-2 rounded-2 mb-3">Register Account</button>
-                            
-                            <!-- Login Link -->
-                            <div class="text-center mt-3">
-                                <p class="small text-muted mb-0">Already have an account? <a href="login.html" class="auth-link">Log in here</a></p>
+                                    <div class="mb-4">
+                                        <label for="adminPassword" class="form-label small fw-semibold text-dark">Create Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                                            <input type="password" class="form-control border-start-0 ps-0 bg-light" id="adminPassword" placeholder="••••••••" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input shadow-none" type="checkbox" id="adminTermsCheck" required>
+                                        <label class="form-check-label small text-muted" for="adminTermsCheck">
+                                            I agree to the <a href="#" class="auth-link">Staff Terms of Service</a>.
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-dark w-100 py-2 rounded-2 mb-3">Register Admin Account</button>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+
+                        <div class="text-center mt-3 border-top pt-3">
+                            <p class="small text-muted mb-0">Already have an account? <a href="login.html" class="auth-link">Log in here</a></p>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-   <!-- Professional Footer -->
-    <footer class="footer-modern">
+   <footer class="footer-modern">
         <div class="container px-4 px-lg-5">
             <div class="row g-5">
-                <!-- Brand Column -->
                 <div class="col-lg-4 col-md-6">
                     <a class="text-white text-decoration-none d-flex align-items-center fs-4 fw-bold mb-4" href="index.html">
                         <i class="bi bi-mortarboard-fill me-2 text-theme"></i>NexusLearn
@@ -282,7 +361,6 @@
                     </div>
                 </div>
 
-                <!-- Quick Links -->
                 <div class="col-lg-2 col-md-6">
                     <h5 class="footer-heading">Platform</h5>
                     <ul class="list-unstyled">
@@ -293,7 +371,6 @@
                     </ul>
                 </div>
 
-                <!-- Resources -->
                 <div class="col-lg-2 col-md-6">
                     <h5 class="footer-heading">Resources</h5>
                     <ul class="list-unstyled">
@@ -304,7 +381,6 @@
                     </ul>
                 </div>
 
-                <!-- Contact / Newsletter -->
                 <div class="col-lg-4 col-md-6">
                     <h5 class="footer-heading">Stay Updated</h5>
                     <p class="small mb-3">Subscribe to our newsletter for the latest platform updates and feature releases.</p>
@@ -315,7 +391,6 @@
                 </div>
             </div>
 
-            <!-- Footer Bottom -->
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <p class="small mb-2 mb-md-0">&copy; 2026 NexusLearn Systems. All rights reserved.</p>
                 <div class="d-flex gap-4">
@@ -327,7 +402,6 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | NexusLearn</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
@@ -86,6 +84,28 @@
             padding: 3.5rem 3rem;
         }
 
+        /* Role Selection Tabs */
+        .role-tabs {
+            background-color: #f1f5f9;
+            padding: 0.3rem;
+            border-radius: 10px;
+        }
+        .role-tabs .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .role-tabs .nav-link:hover:not(.active) {
+            color: var(--theme-primary);
+            background-color: rgba(15, 118, 110, 0.05);
+        }
+        .role-tabs .nav-link.active {
+            background-color: white;
+            color: var(--theme-primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
         .auth-link {
             color: var(--theme-primary);
             text-decoration: none;
@@ -97,15 +117,7 @@
             text-decoration: underline;
         }
 
-        /* Simple Footer */
-        .auth-footer {
-            background-color: #0b1120;
-            color: #94a3b8;
-            padding: 1.5rem 0;
-            margin-top: auto;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-          /* Professional Footer */
+        /* Professional Footer */
         .footer-modern {
             background-color: var(--sidebar-bg);
             color: #94a3b8;
@@ -155,7 +167,6 @@
 </head>
 <body>
 
-    <!-- Simplified Navbar -->
     <nav class="navbar top-navbar d-flex justify-content-between align-items-center">
         <a class="navbar-brand fw-bold fs-5 m-0 d-flex align-items-center text-dark" href="index.html">
             <i class="bi bi-mortarboard-fill me-2 text-theme"></i>Nexus<span class="text-secondary fw-light">Learn</span>
@@ -163,19 +174,17 @@
         <a href="index.html" class="text-muted text-decoration-none small"><i class="bi bi-arrow-left me-1"></i> Back to Home</a>
     </nav>
 
-    <!-- Main Login Area -->
     <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
         <div class="container px-4">
             <div class="login-card">
                 <div class="row g-0">
                     
-                    <!-- Left Branding Pane (Hidden on mobile) -->
                     <div class="col-lg-5 d-none d-lg-flex login-left-pane">
                         <div>
                             <span class="badge bg-white text-dark mb-3 px-2 py-1 rounded-1 fw-medium" style="font-size: 0.75rem;">System Access</span>
                             <h2 class="fw-bold mb-3">Welcome Back.</h2>
                             <p class="text-white-50 small pe-3" style="line-height: 1.6;">
-                                Log in to access your secure student dashboard, track your module progress, and manage your course enrollments seamlessly.
+                                Log in to access your secure dashboard, track your progress, and manage your academic workspace seamlessly.
                             </p>
                         </div>
                         <div class="mt-5 pt-5">
@@ -189,64 +198,101 @@
                         </div>
                     </div>
 
-                    <!-- Right Form Pane -->
                     <div class="col-lg-7 login-right-pane">
                         <div class="mb-4 text-center text-lg-start">
                             <h3 class="fw-bold text-dark mb-1">Account Login</h3>
-                            <p class="text-muted small">Enter your academic credentials to continue.</p>
+                            <p class="text-muted small">Select your role to continue.</p>
                         </div>
 
-                        <form action="dashboard.html">
-                            <!-- Email Field -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label small fw-semibold text-dark">Email Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
-                                    <input type="email" class="form-control border-start-0 ps-0 bg-light" id="email" placeholder="student@institution.edu" required>
-                                </div>
-                            </div>
+                        <ul class="nav nav-pills nav-fill mb-4 role-tabs" id="loginTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="student-tab" data-bs-toggle="pill" data-bs-target="#student-login" type="button" role="tab" aria-controls="student-login" aria-selected="true">
+                                    <i class="bi bi-person-badge me-2"></i>Student
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="admin-tab" data-bs-toggle="pill" data-bs-target="#admin-login" type="button" role="tab" aria-controls="admin-login" aria-selected="false">
+                                    <i class="bi bi-shield-lock me-2"></i>Admin
+                                </button>
+                            </li>
+                        </ul>
 
-                            <!-- Password Field -->
-                            <div class="mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <label for="password" class="form-label small fw-semibold text-dark m-0">Password</label>
-                                    <a href="#" class="small auth-link" style="font-size: 0.8rem;">Forgot password?</a>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
-                                    <input type="password" class="form-control border-start-0 ps-0 bg-light" id="password" placeholder="••••••••" required>
-                                </div>
-                            </div>
-
-                            <!-- Options Row -->
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input shadow-none" type="checkbox" value="" id="rememberMe">
-                                    <label class="form-check-label small text-muted" for="rememberMe">
-                                        Remember me for 30 days
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-theme w-100 py-2 rounded-2 mb-3">Sign In to Dashboard</button>
+                        <div class="tab-content" id="loginTabsContent">
                             
-                            <!-- Register Link -->
-                            <div class="text-center mt-3">
-                                <p class="small text-muted mb-0">Don't have a student account? <a href="register.html" class="auth-link">Register here</a></p>
+                            <div class="tab-pane fade show active" id="student-login" role="tabpanel" aria-labelledby="student-tab">
+                                <form action="dashboard.html">
+                                    <div class="mb-3">
+                                        <label for="student-email" class="form-label small fw-semibold text-dark">Student Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+                                            <input type="email" class="form-control border-start-0 ps-0 bg-light" id="student-email" placeholder="student@institution.edu" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label for="student-password" class="form-label small fw-semibold text-dark m-0">Password</label>
+                                            <a href="#" class="small auth-link" style="font-size: 0.8rem;">Forgot password?</a>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-muted"></i></span>
+                                            <input type="password" class="form-control border-start-0 ps-0 bg-light" id="student-password" placeholder="••••••••" required>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input shadow-none" type="checkbox" value="" id="rememberStudent">
+                                            <label class="form-check-label small text-muted" for="rememberStudent">Remember me for 30 days</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-theme w-100 py-2 rounded-2 mb-3">Sign In to Dashboard</button>
+                                    <div class="text-center mt-3">
+                                        <p class="small text-muted mb-0">Don't have a student account? <a href="register.html" class="auth-link">Register here</a></p>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+
+                            <div class="tab-pane fade" id="admin-login" role="tabpanel" aria-labelledby="admin-tab">
+                                <form action="admin-portal.html">
+                                    <div class="mb-3">
+                                        <label for="admin-email" class="form-label small fw-semibold text-dark">Admin ID or Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person-workspace text-muted"></i></span>
+                                            <input type="text" class="form-control border-start-0 ps-0 bg-light" id="admin-email" placeholder="admin@nexuslearn.edu" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <label for="admin-password" class="form-label small fw-semibold text-dark m-0">Secure Password</label>
+                                            <a href="#" class="small auth-link" style="font-size: 0.8rem;">Forgot password?</a>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-shield-lock text-muted"></i></span>
+                                            <input type="password" class="form-control border-start-0 ps-0 bg-light" id="admin-password" placeholder="••••••••" required>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input shadow-none" type="checkbox" value="" id="rememberAdmin">
+                                            <label class="form-check-label small text-muted" for="rememberAdmin">Keep me logged in</label>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-dark w-100 py-2 rounded-2 mb-3">Access Admin Portal</button>
+                                    <div class="text-center mt-3">
+                                        <p class="small text-muted mb-0">Don't have a admin account? <a href="register.html" class="auth-link">Register here</a></p>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Professional Footer -->
     <footer class="footer-modern">
         <div class="container px-4 px-lg-5">
             <div class="row g-5">
-                <!-- Brand Column -->
                 <div class="col-lg-4 col-md-6">
                     <a class="text-white text-decoration-none d-flex align-items-center fs-4 fw-bold mb-4" href="index.html">
                         <i class="bi bi-mortarboard-fill me-2 text-theme"></i>NexusLearn
@@ -261,7 +307,6 @@
                     </div>
                 </div>
 
-                <!-- Quick Links -->
                 <div class="col-lg-2 col-md-6">
                     <h5 class="footer-heading">Platform</h5>
                     <ul class="list-unstyled">
@@ -272,7 +317,6 @@
                     </ul>
                 </div>
 
-                <!-- Resources -->
                 <div class="col-lg-2 col-md-6">
                     <h5 class="footer-heading">Resources</h5>
                     <ul class="list-unstyled">
@@ -283,7 +327,6 @@
                     </ul>
                 </div>
 
-                <!-- Contact / Newsletter -->
                 <div class="col-lg-4 col-md-6">
                     <h5 class="footer-heading">Stay Updated</h5>
                     <p class="small mb-3">Subscribe to our newsletter for the latest platform updates and feature releases.</p>
@@ -294,7 +337,6 @@
                 </div>
             </div>
 
-            <!-- Footer Bottom -->
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
                 <p class="small mb-2 mb-md-0">&copy; 2026 NexusLearn Systems. All rights reserved.</p>
                 <div class="d-flex gap-4">
@@ -306,7 +348,6 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
